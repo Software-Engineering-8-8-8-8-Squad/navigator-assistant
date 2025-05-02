@@ -5,11 +5,23 @@ import sys
 import time
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
 
 # API configuration
-GRAPHHOPPER_API_KEY = "cd1bb4ac-2bdb-4437-8d21-8ab1ea18b06c"
-GEOCODE_URL = "https://graphhopper.com/api/1/geocode?"
-ROUTE_URL = "https://graphhopper.com/api/1/route?"
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get API key and URLs from environment variables
+GRAPHHOPPER_API_KEY = os.environ.get("GRAPHHOPPER_API_KEY")
+GEOCODE_URL = os.environ.get("GEOCODE_URL", "https://graphhopper.com/api/1/geocode?")
+ROUTE_URL = os.environ.get("ROUTE_URL", "https://graphhopper.com/api/1/route?")
+
+# Check if API key is available
+if not GRAPHHOPPER_API_KEY:
+    print("Error: GRAPHHOPPER_API_KEY not found in .env file")
+    print("Please create a .env file with your API key")
+    sys.exit(1)
 
 # Create data directory if it doesn't exist
 os.makedirs("data", exist_ok=True)
