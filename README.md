@@ -1,6 +1,4 @@
-# Navigator Assistant Web App
-
-A simple yet well-designed navigation assistant using GraphHopper API, built with Node.js and Express.
+# Navigator Assistant
 
 ## Features
 
