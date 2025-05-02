@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Results - Navigator Assistant</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="nav-header">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-location-arrow"></i>
+                    <span>Navigator Assistant</span>
+                </div>
+                <a href="/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    New Route
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="navigation-page">
+        <div class="container">
+            <div id="loading" class="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Calculating your route...</p>
+            </div>
+
+            <div id="error" class="error-message" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <p></p>
+                <a href="/" class="btn">Try Again</a>
+            </div>
+
+            <div id="results" class="navigation-results" style="display: none;">
+                <div class="route-summary">
+                    <div class="route-header">
+                        <h1>Your Route</h1>
+                        <div class="route-info">
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="start-location"></span>
+                            </div>
+                            <div class="route-arrow">
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-flag-checkered"></i>
+                                <span id="end-location"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="route-stats">
+                        <div class="stat">
+                            <i class="fas fa-road"></i>
+                            <div>
+                                <h3>Distance</h3>
+                                <p id="distance"></p>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h3>Duration</h3>
+                                <p id="duration"></p>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <i id="vehicle-icon" class="fas fa-car"></i>
+                            <div>
+                                <h3>Vehicle</h3>
+                                <p id="vehicle-type"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="route-details" id="route-details" style="display: none;">
+                    <h2>Route Details</h2>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <i class="fas fa-mountain"></i>
+                            <div>
+                                <h3>Elevation Gain</h3>
+                                <p id="elevation-gain">0 m</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-arrow-down"></i>
+                            <div>
+                                <h3>Elevation Loss</h3>
+                                <p id="elevation-loss">0 m</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="directions-panel">
+                    <h2>Turn-by-turn Directions</h2>
+                    <div id="directions-list" class="directions-list">
+                        <!-- Directions will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
