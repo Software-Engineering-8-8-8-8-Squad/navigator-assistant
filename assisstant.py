@@ -89,4 +89,88 @@ def geocode_location(location, key=GRAPHHOPPER_API_KEY):
     except Exception as e:
         print(f"Error during geocoding: {e}")
         return 0, None, None, None
+def get_directions(start_loc, end_loc, vehicle="car", key=GRAPHHOPPER_API_KEY):
+    """
+    Get directions between two locations.
+    
+    Args:
+        start_loc (tuple): (lat, lng) of starting location
+        end_loc (tuple): (lat, lng) of ending location
+        vehicle (str): Vehicle profile (car, bike, foot)
+        key (str): API key for GraphHopper
+        
+    Returns:
+        tuple: (status_code, route_data)
+    """
+    start_lat, start_lng = start_loc
+    end_lat, end_lng = end_loc
+    
+    params = {
+        "key": key,
+        "vehicle": vehicle,
+        "point": [f"{start_lat},{start_lng}", f"{end_lat},{end_lng}"]
+    }
+    
+    # Construct URL with multiple point parameters
+    url_parts = []
+    url_parts.append(f"key={key}")
+    url_parts.append(f"vehicle={vehicle}")
+    for point in params["point"]:
+        url_parts.append(f"point={urllib.parse.quote(point)}")
+    
+    url = ROUTE_URL + "&".join(url_parts)
+    
+    try:
+        response = requests.get(url)
+        status_code = response.status_code
+        
+        print("=================================================")
+        print(f"Routing API Status: {status_code}")
+        print(f"Routing API URL:\n{url}")
+        print("=================================================")
+        
+        if status_code == 200:
+            return status_code, response.json()
+        else:
+            return status_code, response.json() if hasattr(response, 'json') else None
+    
+    except Exception as e:
+        print(f"Error during routing: {e}")
+        return 0, None
+def display_route(route_data, start_name, end_name, vehicle):
+    """Display the route information and directions."""
+    if not route_data or "paths" not in route_data or not route_data["paths"]:
+        print(f"Directions from {start_name} to {end_name} by {vehicle}")
+        print("=================================================")
+        print("Error: No route data available")
+        return
+    
+    path = route_data["paths"][0]
+    
+    # Extract route information
+    distance = path.get("distance", 0)  # in meters
+    time_value = path.get("time", 0)    # in milliseconds
+    
+    # Convert time from milliseconds to seconds
+    time_seconds = time_value / 1000
+    
+    print(f"Directions from {start_name} to {end_name} by {vehicle}")
+    print("=================================================")
+    print(f"Distance Traveled: {format_distance(distance)}")
+    print(f"Trip Duration: {format_time(time_seconds)}")
+    print("=================================================")
+    
+    # Display instructions
+    if "instructions" in path:
+        for instruction in path["instructions"]:
+            text = instruction.get("text", "Continue")
+            distance_inst = instruction.get("distance", 0)
+            
+            # Format distance for each instruction
+            km = distance_inst / 1000.0
+            miles = km * 0.621371
+            
+            print(f"{text} ( {km:.1f} km / {miles:.1f} miles )")
+    
+    print("=================================================")
 
