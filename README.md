@@ -131,10 +131,6 @@ pip install -r requirements.txt
 4. **Click "Start Navigation"** to generate your route
 5. **View the results page** with your personalized navigation instructions
 
-<p align="center">
-  <img src="https://via.placeholder.com/600x300" alt="Web Interface" width="600">
-</p>
-
 ### Python Application
 
 The Python application provides additional functionality and can be used in several ways:
@@ -293,5 +289,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <p align="center">
-  Made with ❤️ by the Navigator Assistant Team
+  Made with ❤️ by the INHA Software Engineering students
 </p>
