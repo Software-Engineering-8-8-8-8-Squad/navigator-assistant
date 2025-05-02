@@ -14,8 +14,8 @@ load_dotenv()
 
 # Get API key and URLs from environment variables
 GRAPHHOPPER_API_KEY = os.environ.get("GRAPHHOPPER_API_KEY")
-GEOCODE_URL = os.environ.get("GEOCODE_URL", "https://graphhopper.com/api/1/geocode?")
-ROUTE_URL = os.environ.get("ROUTE_URL", "https://graphhopper.com/api/1/route?")
+GEOCODE_URL = os.environ.get("GEOCODE_URL")
+ROUTE_URL = os.environ.get("ROUTE_URL")
 
 # Check if API key is available
 if not GRAPHHOPPER_API_KEY:
@@ -186,3 +186,98 @@ def display_route(route_data, start_name, end_name, vehicle):
     
     print("=================================================")
 
+
+
+def get_available_profiles():
+    """Return a list of available vehicle profiles."""
+    # These are the standard profiles supported by GraphHopper
+    return ["car", "bike", "foot"]
+
+def main():
+    """Main function to run the application."""
+    try:
+        display_header("GraphHopper Navigation Assistant", "=")
+        print("Welcome to the navigation system!")
+        print("You can get directions using different vehicle profiles.")
+        
+        while True:
+            print("\nMain Menu:")
+            print("1. Plan a route")
+            print("2. Exit")
+            
+            choice = input("\nSelect an option (1-2): ").strip()
+            
+            if choice == "1":
+                # Display available vehicle profiles
+                profiles = get_available_profiles()
+                display_header("Vehicle profiles available on Graphhopper:", "+")
+                print(", ".join(profiles))
+                display_header("", "+")
+                
+                # Get vehicle profile
+                vehicle = input("Enter a vehicle profile from the list above: ").strip().lower()
+                
+                if vehicle not in profiles:
+                    print(f"No valid vehicle profile was entered. Using the car profile.")
+                    vehicle = "car"
+                
+                # Get starting location
+                start_location = input("Starting Location: ").strip()
+                while not start_location:
+                    start_location = input("Enter location again: ").strip()
+                
+                # Geocode starting location
+                start_status, start_lat, start_lng, start_name = geocode_location(start_location)
+                
+                if start_status != 200 or start_lat is None:
+                    print(f"Could not geocode starting location: {start_location}")
+                    continue
+                
+                # Get destination
+                end_location = input("Destination: ").strip()
+                while not end_location:
+                    end_location = input("Enter destination again: ").strip()
+                
+                # Geocode destination
+                end_status, end_lat, end_lng, end_name = geocode_location(end_location)
+                
+                if end_status != 200 or end_lat is None:
+                    print(f"Could not geocode destination: {end_location}")
+                    continue
+                
+                # Get directions
+                route_status, route_data = get_directions(
+                    (start_lat, start_lng),
+                    (end_lat, end_lng),
+                    vehicle
+                )
+                
+                # Display directions
+                if route_status == 200 and route_data:
+                    display_route(route_data, start_name, end_name, vehicle)
+                else:
+                    error_msg = "Unknown error"
+                    if route_data and "message" in route_data:
+                        error_msg = route_data["message"]
+                    
+                    print(f"Directions from {start_name} to {end_name} by {vehicle}")
+                    print("=================================================")
+                    print(f"Error message: {error_msg}")
+                    print("*************************************************")
+            
+            elif choice == "2":
+                print("Thank you for using the GraphHopper Navigation Assistant. Goodbye!")
+                break
+            
+            else:
+                print("Invalid option. Please try again.")
+    
+    except KeyboardInterrupt:
+        print("\nProgram terminated by user.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        import traceback
+        traceback.print_exc()
+
+if __name__ == "__main__":
+    main()
