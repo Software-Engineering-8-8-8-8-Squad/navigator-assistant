@@ -1,128 +1,297 @@
 # Navigator Assistant
 
-## Features
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
+![Node.js](https://img.shields.io/badge/node.js-v14%2B-green.svg)
+![npm](https://img.shields.io/badge/npm-v6%2B-orange.svg)
 
-- **Vehicle Selection**: Choose between car, bike, walking, or e-cargo bike
-- **Visual Interface**: Attractive UI with icons and responsive design
-- **Turn-by-turn Directions**: Detailed navigation instructions with distance
-- **Route Summary**: Quick overview of total distance and duration
-- **Elevation Data**: Shows elevation gain/loss for routes (when available)
-- **Enhanced Geocoding**: Detailed location information including city, state, and location type
-- **Error Handling**: User-friendly error messages with specific GraphHopper API error handling
-- **API Rate Limit Protection**: Graceful handling of API limits
+A comprehensive navigation solution with both web and Python interfaces, powered by GraphHopper routing API.
 
-## Prerequisites
+## 📋 Table of Contents
 
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+- [Features](#-features)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Usage](#-usage)
+  - [Web Application](#web-application)
+  - [Python Application](#python-application)
+- [API Documentation](#-api-documentation)
+- [Project Structure](#-project-structure)
+- [Customization](#-customization)
+- [Troubleshooting](#-troubleshooting)
+- [License](#-license)
 
-## Installation
+## ✨ Features
 
-1. Clone the repository or create a new directory:
+- **Multiple Vehicle Options** - Car, bike, walking, or e-cargo bike routing
+- **Interactive Interface** - Clean, intuitive UI with responsive design
+- **Detailed Navigation** - Turn-by-turn directions with distances
+- **Route Statistics** - Comprehensive overview of distance, duration, and elevation
+- **Advanced Geocoding** - Detailed location data including city, state, and POI information
+- **Robust Error Handling** - User-friendly messages with specific GraphHopper API error handling
+- **Rate Limit Protection** - Graceful handling of API limits to prevent service disruption
+
+## 🔧 Prerequisites
+
+- **Python**: 3.10 or higher
+- **Node.js**: v14 or higher
+- **npm**: v6 or higher
+- **GraphHopper API Key**: Register at [GraphHopper](https://www.graphhopper.com/) to obtain your API key
+
+## 🚀 Installation
+
+### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/Software-Engineering-8-8-8-8-Squad/navigator-assistant.git
-cd navigator-assistant/web-app
+cd navigator-assistant
 ```
 
-2. Create the project structure as shown in the project files
+### 2. Set Up Environment Variables
 
-3. Install dependencies:
+Copy the example environment file and add your GraphHopper API key:
+
 ```bash
-npm install
+cp .example.env .env
 ```
 
-4. Create a `.env` file with your GraphHopper API key:
+Edit the `.env` file with your details:
+
 ```
 PORT=3000
 GRAPHHOPPER_API_KEY=your_api_key_here
 ```
 
-## Project Structure
+## ⚙️ Configuration
 
-```
-navigator-assistant/
-├── server.js                 # Express server
-├── package.json             # Node.js dependencies
-├── .env                     # Environment variables
-├── public/                  # Static files
-│   ├── css/
-│   │   └── styles.css      # Main stylesheet
-│   ├── js/
-│   │   └── main.js         # Frontend JavaScript
-│   └── images/             # Images (optional)
-├── views/                   # EJS templates
-│   ├── index.ejs           # Main page
-│   └── navigation.ejs      # Navigation results page
-└── routes/                  # Express routes
-    └── api.js              # API endpoints
-```
+### Web Application Setup
 
-## Running the Application
+1. Navigate to the web application directory:
 
-1. Start the development server:
 ```bash
-npm run dev
+cd web-app
 ```
 
-2. Open your browser and navigate to:
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server:
+
+```bash
+npm start  # For production
+# OR
+npm run dev  # For development with auto-reload
+```
+
+4. Access the web interface at:
+
 ```
 http://localhost:3000
 ```
 
-## Usage
+### Python Application Setup
 
-1. **Select Vehicle Type**: Click on the car, bike, or walking icon
-2. **Enter Locations**: Fill in your starting point and destination
-3. **Start Navigation**: Click the "Start Navigation" button
-4. **View Results**: See your route with turn-by-turn directions
+1. Navigate to the Python application directory:
 
-## API Endpoints
+```bash
+cd python-app
+```
 
-- `POST /api/route`: Get route between two locations
-  - Request body: `{ start: string, end: string, vehicle: string, options?: object }`
-  - Returns: Route data with directions, distance, duration, elevation, and route details
+2. Create and activate a virtual environment:
 
-- `POST /api/isochrone`: Get isochrone/isodistance from a location
-  - Request body: `{ location: string, time_limit?: number, distance_limit?: number, vehicle?: string }`
-  - Returns: Isochrone polygon data
+```bash
+# Create virtual environment
+python -m venv venv
 
-- `GET /api/profiles`: Get available vehicle profiles
-  - Returns: Array of available profiles with icons
+# Activate on Linux/macOS
+source venv/bin/activate
 
-## Technologies Used
+# Activate on Windows
+venv\Scripts\activate
+```
 
-- **Backend**: Node.js, Express
-- **Templating**: EJS
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Icons**: Font Awesome
-- **API**: GraphHopper Routing API
+3. Install required packages:
 
-## Notes
+```bash
+pip install -r requirements.txt
+```
 
-- The application uses sessionStorage to pass data between pages
-- GraphHopper API key should be kept secure in the `.env` file
-- The free API has rate limits (500 requests/day), consider upgrading for production use
-- Supports GraphHopper's standard vehicle profiles (car, bike, foot, ecargobike)
-- Custom profiles can be added by following GraphHopper's documentation
-- The API supports additional features like elevation data, route details, and isochrones
+## 🖥️ Usage
 
-## Customization
+### Web Application
+
+1. **Open the web interface** at `http://localhost:3000`
+2. **Select your transportation mode** by clicking the appropriate icon
+3. **Enter your starting point and destination** in the input fields
+4. **Click "Start Navigation"** to generate your route
+5. **View the results page** with your personalized navigation instructions
+
+<p align="center">
+  <img src="https://via.placeholder.com/600x300" alt="Web Interface" width="600">
+</p>
+
+### Python Application
+
+The Python application provides additional functionality and can be used in several ways:
+
+1. **Basic Usage:**
+
+```bash
+python main.py --start "New York, NY" --end "Boston, MA" --vehicle car
+```
+
+2. **Advanced Options:**
+
+```bash
+python main.py --start "Seattle, WA" --end "Portland, OR" --vehicle bike --elevation true --alternative-routes 3
+```
+
+3. **Interactive Mode:**
+
+```bash
+python main.py --interactive
+```
+
+4. **As a Module in Your Projects:**
+
+```python
+from navigator import RouteCalculator
+
+# Initialize the calculator
+calculator = RouteCalculator(api_key="your_api_key")
+
+# Calculate a route
+route = calculator.get_route(
+    start="Chicago, IL",
+    end="Milwaukee, WI",
+    vehicle="car"
+)
+
+# Print the directions
+for step in route.directions:
+    print(f"{step.instruction} ({step.distance}m)")
+```
+
+## 📚 API Documentation
+
+### Web Application Endpoints
+
+| Endpoint | Method | Description | Parameters |
+|----------|--------|-------------|------------|
+| `/api/route` | POST | Get route between two locations | `start`, `end`, `vehicle`, `options` |
+| `/api/isochrone` | POST | Get isochrone/isodistance from a location | `location`, `time_limit`, `distance_limit`, `vehicle` |
+| `/api/profiles` | GET | Get available vehicle profiles | None |
+
+### Example API Request
+
+```javascript
+// Request a route
+fetch('/api/route', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    start: 'New York, NY',
+    end: 'Philadelphia, PA',
+    vehicle: 'car'
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+## 📁 Project Structure
+
+```
+navigator-assistant/
+├── web-app/                 # Web application
+│   ├── server.js            # Express server
+│   ├── package.json         # Node.js dependencies
+│   ├── public/              # Static files
+│   │   ├── css/             # Stylesheets
+│   │   ├── js/              # Frontend JavaScript
+│   │   └── images/          # Images and icons
+│   ├── views/               # EJS templates
+│   └── routes/              # Express routes
+├── python-app/              # Python application
+│   ├── main.py              # Main entry point
+│   ├── navigator/           # Navigator module
+│   │   ├── __init__.py
+│   │   ├── calculator.py    # Route calculation logic
+│   │   ├── models.py        # Data models
+│   │   └── utils.py         # Utility functions
+│   ├── tests/               # Test suite
+│   └── requirements.txt     # Python dependencies
+├── .env                     # Environment variables
+├── .example.env             # Example environment file
+├── README.md                # Documentation
+└── LICENSE                  # MIT License
+```
+
+## 🎨 Customization
 
 ### Adding Vehicle Types
 
-To add more vehicle types, update:
-1. `routes/api.js` - Add to available profiles
-2. `views/index.ejs` - Add new vehicle button
-3. `public/js/main.js` - Add icon mapping
+To add more vehicle profiles:
+
+1. Update `routes/api.js` with new profile details:
+```javascript
+const PROFILES = {
+  // ...existing profiles
+  motorcycle: {
+    name: "Motorcycle",
+    icon: "motorcycle"
+  }
+};
+```
+
+2. Add the new vehicle button to `views/index.ejs`
+3. Update the icon mapping in `public/js/main.js`
 
 ### Styling
 
-Modify `public/css/styles.css` to change:
-- Colors (primary: #007bff)
-- Fonts
-- Layout
-- Animations
+Modify `public/css/styles.css` to customize:
 
-## License
+- Color scheme (current primary: #007bff)
+- Typography
+- Layout and spacing
+- Animations and transitions
 
-MIT License
+## 🔍 Troubleshooting
+
+### Common Issues
+
+1. **API Key Not Found**
+   - Ensure your `.env` file is in the correct location (project root)
+   - Check that you've set the `GRAPHHOPPER_API_KEY` variable
+
+2. **Cannot Connect to GraphHopper API**
+   - Verify your internet connection
+   - Check if you've exceeded your API rate limit
+   - Ensure your API key is valid
+
+3. **Node.js Application Not Starting**
+   - Check if port 3000 is already in use
+   - Verify you've installed all dependencies with `npm install`
+
+### Getting Help
+
+If you encounter issues not covered here, please:
+- Submit an issue on our GitHub repository
+- Check the GraphHopper API documentation for API-specific problems
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<p align="center">
+  Made with ❤️ by the Navigator Assistant Team
+</p>
