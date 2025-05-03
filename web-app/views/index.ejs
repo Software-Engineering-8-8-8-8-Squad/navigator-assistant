@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigator Assistant</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="hero-section">
+        <div class="overlay"></div>
+        <div class="container">
+            <header>
+                <nav>
+                    <div class="logo">
+                        <i class="fas fa-location-arrow"></i>
+                        <span>Navigator Assistant</span>
+                    </div>
+                </nav>
+            </header>
+
+            <main>
+                <div class="hero-content">
+                    <h1>Your Journey Starts Here</h1>
+                    <p>Get precise directions for any mode of transportation with our advanced navigation system</p>
+                </div>
+
+                <div class="navigation-form">
+                    <h2>Plan Your Route</h2>
+                    
+                    <div class="vehicle-selection">
+                        <h3>Choose Your Vehicle</h3>
+                        <div class="vehicle-options">
+                            <button class="vehicle-btn" data-vehicle="car" title="Standard car routing">
+                                <i class="fas fa-car"></i>
+                                <span>Car</span>
+                            </button>
+                            <button class="vehicle-btn" data-vehicle="bike" title="Bicycle routing">
+                                <i class="fas fa-bicycle"></i>
+                                <span>Bike</span>
+                            </button>
+                            <button class="vehicle-btn" data-vehicle="foot" title="Walking directions">
+                                <i class="fas fa-walking"></i>
+                                <span>Walk</span>
+                            </button>
+                            <button class="vehicle-btn" data-vehicle="ecargobike" title="Electric cargo bike routing">
+                                <i class="fas fa-truck-loading"></i>
+                                <span>E-Cargo</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <form id="route-form">
+                        <div class="form-group">
+                            <label for="start">Starting Location</label>
+                            <div class="input-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" id="start" name="start" placeholder="Enter your starting point" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="end">Destination</label>
+                            <div class="input-icon">
+                                <i class="fas fa-flag-checkered"></i>
+                                <input type="text" id="end" name="end" placeholder="Enter your destination" required>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="vehicle" name="vehicle" value="">
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-route"></i>
+                            Start Navigation
+                        </button>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <section class="features-section">
+        <div class="container">
+            <h2>Why Choose Navigator Assistant?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Accurate Routes</h3>
+                    <p>Get precise turn-by-turn directions using GraphHopper's advanced routing algorithms</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <h3>Real-time Updates</h3>
+                    <p>Receive accurate time estimates and distance calculations for your journey</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-globe"></i>
+                    <h3>Global Coverage</h3>
+                    <p>Navigate anywhere in the world with our comprehensive mapping system</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
